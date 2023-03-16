@@ -1,0 +1,21 @@
+.navItem{
+    padding: 1rem;
+}
+  
+  .nav {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    height: 100vh;
+  }
+  
+  .nav-item-link {
+    color: #4b4b4b;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .nav-item-link:hover {
+    color: #292929;
+  }
+  
