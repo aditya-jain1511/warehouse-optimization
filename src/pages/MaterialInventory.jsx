@@ -28,22 +28,26 @@ const MaterialInventory = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-    const exists = materialList.some(
-        (item) =>
-          item.materialCode === formState.materialCode &&
-          item.innerBoxCode === formState.innerBoxCode
-    );
-  
-    if (exists) {
-        setShowAlert(true);
-        return;
-    }
+        if(formState.materialCode === "" || formState.innerBoxCode === "" || formState.quantPBox <= 0){
+            return 
+        }
 
-    setMaterialList((prevState) => [...prevState, formState]);
-    setFormState({
-        materialCode: "",
-        quantPBox: 0,
-        innerBoxCode: "",
+        const exists = materialList.some(
+            (item) =>
+            item.materialCode === formState.materialCode &&
+            item.innerBoxCode === formState.innerBoxCode
+        );
+    
+        if (exists) {
+            setShowAlert(true);
+            return;
+        }
+
+        setMaterialList((prevState) => [...prevState, formState]);
+        setFormState({
+            materialCode: "",
+            quantPBox: 0,
+            innerBoxCode: "",
         });
     };
     
@@ -73,7 +77,7 @@ const MaterialInventory = () => {
             <Row>
                 <Col md="5">
                 <FormGroup>
-                    <Label for="materialCode">Product Code</Label>
+                    <Label for="materialCode">Material Code</Label>
                     <Input
                     type="text"
                     name="materialCode"
@@ -94,7 +98,7 @@ const MaterialInventory = () => {
                     value={formState.innerBoxCode}
                     onChange={handleInputChange}
                     >
-                    <option value="">Select Material Code</option>
+                    <option value="">Select InnerBox Code</option>
                     {innerBoxOptions}
                     </Input>
                 </FormGroup>

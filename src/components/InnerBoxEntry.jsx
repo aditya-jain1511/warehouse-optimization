@@ -27,6 +27,10 @@ const InnerBoxEntry = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if(formState.innerBoxName === "" || formState.innerBoxCode === "" || formState.len <= 0 || formState.breadth <= 0 || formState.width <= 0){
+      return null
+    }
+
     const exists = inBoxInventory.some(
         (item) =>
           item.innerBoxCode === formState.innerBoxCode
