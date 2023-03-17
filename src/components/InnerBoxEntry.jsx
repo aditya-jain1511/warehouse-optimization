@@ -10,7 +10,7 @@ const InnerBoxEntry = () => {
   const [formState, setFormState] = useState({
     innerBoxName: "",
     innerBoxCode: "",
-    length: 0,
+    len: 0,
     breadth: 0,
     width: 0,
   });
@@ -41,7 +41,7 @@ const InnerBoxEntry = () => {
     setFormState({
       innerBoxName: "",
       innerBoxCode: "",
-      length: 0,
+      len: 0,
       breadth: 0,
       width: 0,
     });
@@ -91,12 +91,12 @@ const InnerBoxEntry = () => {
         </Col>
         <Col md="2">
           <FormGroup>
-            <Label for="length">Length</Label>
+            <Label for="len">Length</Label>
             <Input
               type="number"
-              name="length"
-              id="length"
-              value={formState.length}
+              name="len"
+              id="len"
+              value={formState.len}
               onChange={handleInputChange}
               />
           </FormGroup>
@@ -150,7 +150,7 @@ const InnerBoxEntry = () => {
             <tr key={index}>
               <td>{item.innerBoxName}</td>
               <td>{item.innerBoxCode}</td>
-              <td>{item.length}</td>
+              <td>{item.len}</td>
               <td>{item.breadth}</td>
               <td>{item.width}</td>
               <td>
