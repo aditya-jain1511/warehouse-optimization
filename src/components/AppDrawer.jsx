@@ -15,10 +15,7 @@ const AppDrawer = () => {
                     </NavItem>
                     <NavItem className='navItem'>
                         <Link className='nav-item-link' to="/innerboxinventory">InnerBox Inventory</Link>
-                    </NavItem>
-                    <NavItem className='navItem'>
-                        <Link className='nav-item-link' to="/materialinventory">Material Inventory</Link>
-                    </NavItem>     
+                    </NavItem> 
                 </Nav>
             </div>
         </div>

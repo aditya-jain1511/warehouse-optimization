@@ -8,32 +8,45 @@ const InnerBoxEntry = () => {
     const {inBoxInventory, setInBoxInventory} = useContext(InnerBoxAvailableContext)
 
   const [formState, setFormState] = useState({
-    innerBoxName: "",
-    innerBoxCode: "",
-    len: 0,
-    breadth: 0,
-    width: 0,
+      plant:"",
+      plantCode:"",
+      materialCode:"",
+      quantPBox:0,
+      innerBoxCode: "",
+      len: 0,
+      height: 0,
+      width: 0,
+      innerQuantity:0
   });
   const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if(formState.plant && formState.plantCode && formState.materialCode && formState.len && formState.len && formState.width){
+      setFormState((prevState) => ({
+        ...prevState,
+        [name]: value,
+        innerBoxCode: formState.plant.substring(0,2).toUpperCase()+formState.plantCode+formState.materialCode.substring(0,4)+formState.len + formState.len + formState.width,
+      }));
+    }
     setFormState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(formState.innerBoxName === "" || formState.innerBoxCode === "" || formState.len <= 0 || formState.breadth <= 0 || formState.width <= 0){
-      return null
-    }
-
     const exists = inBoxInventory.some(
         (item) =>
-          item.innerBoxCode === formState.innerBoxCode
+          item.plant === formState.plant &&
+          item.plantCode === formState.plantCode &&
+          item.materialCode === formState.materialCode &&
+          item.len === formState.len &&
+          item.height === formState.len &&
+          item.width === formState.width
     );
   
     if (exists) {
@@ -43,11 +56,15 @@ const InnerBoxEntry = () => {
 
     setInBoxInventory((prevState) => [...prevState, formState]);
     setFormState({
-      innerBoxName: "",
+      plant:"",
+      plantCode:"",
+      materialCode:"",
+      quantPBox:0,
       innerBoxCode: "",
       len: 0,
-      breadth: 0,
+      height: 0,
       width: 0,
+      innerQuantity:0
     });
   };
   
@@ -66,15 +83,17 @@ const InnerBoxEntry = () => {
                 <Button type="submit" color="primary">+ Add </Button>
             </div>
         </div>
+        <br />
       <Row>
-        <Col md="3">
+        <Col md="2">
           <FormGroup>
-            <Label for="innerBoxName">InnerBox Name</Label>
+            <Label for="plant">Plant</Label>
             <Input
               type="text"
-              name="innerBoxName"
-              id="innerBoxName"
-              value={formState.innerBoxName}
+              name="plant"
+              id="plant"
+              required
+              value={formState.plant}
               onChange={handleInputChange}
             >       
             </Input>
@@ -82,51 +101,86 @@ const InnerBoxEntry = () => {
         </Col>
         <Col md="3">
           <FormGroup>
-            <Label for="innerBoxCode">Innerbox Code</Label>
+            <Label for="plantCode">Plant Code</Label>
             <Input
               type="text"
-              name="innerBoxCode"
-              id="innerBoxCode"
-              value={formState.innerBoxCode}
+              name="plantCode"
+              id="plantCode"
+              required
+              value={formState.plantCode}
+              onChange={handleInputChange}
+            >       
+            </Input>
+          </FormGroup>
+        </Col>
+        <Col md="3">
+          <FormGroup>
+            <Label for="materialCode">Material Code</Label>
+            <Input
+              type="text"
+              name="materialCode"
+              id="materialCode"
+              required
+              value={formState.materialCode}
               onChange={handleInputChange}
               >
             </Input>
           </FormGroup>
-        </Col>
-        <Col md="2">
+        </Col> 
+        <Col md="1">
           <FormGroup>
             <Label for="len">Length</Label>
             <Input
               type="number"
               name="len"
+              min="1"
               id="len"
+              required
               value={formState.len}
               onChange={handleInputChange}
               />
           </FormGroup>
         </Col>
-        <Col md="2">
+        <Col md="1">
           <FormGroup>
-            <Label for="breadth">Breadth</Label>
+            <Label for="height">Height</Label>
             <Input
               type="number"
-              name="breadth"
-              id="breadth"
-              value={formState.breadth}
+              name="height"
+              min="1"
+              id="height"
+              required
+              value={formState.height}
               onChange={handleInputChange}
             />
           </FormGroup>
         </Col>
-        <Col md="2">
+        <Col md="1">
           <FormGroup>
             <Label for="width">Width</Label>
             <Input
               type="number"
               name="width"
+              min="1"
               id="width"
+              required
               value={formState.width}
               onChange={handleInputChange}
             />
+          </FormGroup>
+        </Col>
+        <Col md="1">
+          <FormGroup>
+            <Label for="quantPBox">Quant Per Box</Label>
+            <Input
+              type="number"
+              name="quantPBox"
+              min="1"
+              id="quantPBox"
+              required
+              value={formState.quantPBox}
+              onChange={handleInputChange}
+              />
           </FormGroup>
         </Col>
       </Row>
@@ -135,28 +189,36 @@ const InnerBoxEntry = () => {
 
     {/* display alert if value already exists */}
     <Alert color="danger" isOpen={showAlert} toggle={() => setShowAlert(false)}>
-        A value with the same Product Code and Material Code already exists.
+        A value already exists.
     </Alert>
 
     <Table>
         <thead>
           <tr>
-            <th>InnerBox Name</th>
+            <th>Plant</th>
+            <th>Plant Code</th>
+            <th>Material Code</th>
+            <th>Quant Per Box</th>
             <th>InnerBox Code</th>
             <th>Length</th>
-            <th>Breadth</th>
+            <th>Height</th>
             <th>Width</th>
+            <th>InnerBox Quantity</th>
             <th>{" "}</th>
           </tr>
         </thead>
         <tbody>
           {inBoxInventory.map((item, index) => (
             <tr key={index}>
-              <td>{item.innerBoxName}</td>
+              <td>{item.plant}</td>
+              <td>{item.plantCode}</td>
+              <td>{item.materialCode}</td>
+              <td>{item.quantPBox}</td>
               <td>{item.innerBoxCode}</td>
               <td>{item.len}</td>
-              <td>{item.breadth}</td>
+              <td>{item.height}</td>
               <td>{item.width}</td>
+              <td>{item.innerQuantity}</td>
               <td>
                 <div id="deleteIcon">
                     <AiOutlineDelete onClick={()=> handleDelete(index)}></AiOutlineDelete>

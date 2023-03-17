@@ -4,7 +4,6 @@ import AppDrawer from '../components/AppDrawer'
 import { Route, Routes } from 'react-router'
 import InnerBoxInventory from './InnerBoxInventory'
 import OutboxSuggestion from './OutboxSuggestion'
-import MaterialInventory from './MaterialInventory'
 
 const Pages = () => {
   return (
@@ -19,10 +18,7 @@ const Pages = () => {
                 <Routes>
                     <Route path="/outboxsuggest" element={<OutboxSuggestion />}></Route>
                     <Route path="/innerboxinventory" element={<InnerBoxInventory />}></Route>
-                    <Route path="/materialinventory" element={<MaterialInventory />}></Route>
                     <Route path="*" element={<OutboxSuggestion />}></Route>
-                    {/* {OutboxInventory } */}
-                    {/* login */}
                 </Routes>
             </div>
         </div>

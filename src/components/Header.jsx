@@ -21,7 +21,7 @@ const Header = () => {
                     <Collapse isOpen={isNavOpen} navbar>
                         <Nav className="ms-auto" navbar>
                             <NavItem>
-                                <Link className='nav-link' to="/">FACILITY000</Link>
+                                <Link className='nav-link' to="/">MUAR-WAREHOUSE</Link>
                             </NavItem>
                         </Nav>
                     </Collapse>
